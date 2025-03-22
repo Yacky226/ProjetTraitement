@@ -1,11 +1,10 @@
-// server.js
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const accidentRoutes = require('./routes/accidents');
 const cron = require('node-cron');
 const axios = require('axios');
-const cors = require('cors'); // Add this
+const cors = require('cors'); 
 
 // Initialiser Express
 const app = express();
@@ -24,13 +23,10 @@ mongoose.connect(process.env.MONGO_URI, {
   .then(() => console.log("Connecté à MongoDB"))
   .catch(err => console.error("Erreur de connexion à MongoDB", err));
 
-// Route simple pour tester
-app.get('/', (req, res) => {
-  res.send('Serveur Express en marche !');
-});
 
-// Automatiser la mise à jour des accidents toutes les 25 minutes
-cron.schedule('*/25 * * * *', async () => {
+
+// Automatiser la mise à jour des accidents toutes les 5 minutes
+cron.schedule('*/5 * * * *', async () => {
   console.log("Mise à jour automatique des accidents...");
   try {
     const response = await axios.post('http://localhost:5000/accidents/update');

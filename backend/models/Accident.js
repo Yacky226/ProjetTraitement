@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const AccidentSchema = new mongoose.Schema({
     crash_date: { type: Date, required: true },
     crash_time: { type: String,required:true }, // Ajout d'une valeur par défaut
-    on_street_name: { type: String, required: true }, // Ajout de required si le champ est essentiel
+    on_street_name: { type: String, required: true }, 
     number_of_persons_injured: { type: Number,reuired:true },
     number_of_persons_killed: { type: Number, required:true },
     contributing_factor_vehicle_1: { type: String,reuired:true },

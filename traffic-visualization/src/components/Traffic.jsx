@@ -215,7 +215,7 @@ const TrafficMap = () => {
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution='<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         {renderMapContent()}
       </MapContainer>
