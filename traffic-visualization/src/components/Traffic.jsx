@@ -3,8 +3,9 @@ import { MapContainer, TileLayer, Circle, Popup, Marker, useMap } from "react-le
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet.heat";
+import { useNavigate } from "react-router-dom"; // Importez useNavigate
+const API_BASE_URL = "http://localhost:3000/accidents";
 
-const API_BASE_URL = "http://localhost:5000/accidents";
 
 // Composant personnalisé pour la heatmap
 const HeatmapLayerCustom = ({ points }) => {
@@ -43,6 +44,11 @@ const HeatmapLayerCustom = ({ points }) => {
 };
 
 const TrafficMap = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate('/predictions'); // Chemin vers la nouvelle page
+  };
   const [view, setView] = useState("TrafficAccidents");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -165,7 +171,7 @@ const TrafficMap = () => {
               <br />
               Tués: {accident.totalKilled }
               <br />
-              Risque: {accident.indice_de_risque.toFixed(2)}
+              Risque: {accident.indice_de_risque}
             </Popup>
           </Circle>
         ));
@@ -181,25 +187,39 @@ const TrafficMap = () => {
     <div style={{ textAlign: "center", padding: "20px" }}>
       <div style={{ marginBottom: "20px" }}>
         {["heatmap", "dangerous-zones", "TrafficAccidents"].map((type) => (
-          <button
-            key={type}
-            onClick={() => setView(type)}
-            style={{
-              margin: "0 5px",
-              padding: "10px",
-              backgroundColor: view === type ? "#ddd" : "#fff",
-              border: "1px solid #ccc",
-              cursor: "pointer",
-            }}
-          >
+          <React.Fragment key={type}>
+            <button
+              onClick={() => setView(type)}
+              style={{
+                margin: "0 5px",
+                padding: "10px",
+                backgroundColor: view === type ? "#ddd" : "#fff",
+                border: "1px solid #ccc",
+                cursor: "pointer",
+              }}
+            >
+              {type === "heatmap"
+                ? "Carte de chaleur"
+                : type === "dangerous-zones"
+                ? "Zones dangereuses"
+                : "TrafficAccidents"}
+            </button>
            
-            {type === "heatmap"
-              ? "Carte de chaleur"
-              : type === "dangerous-zones"
-              ? "Zones dangereuses"
-              : "TrafficAccidents"}
-          </button>
+          </React.Fragment>
+
         ))}
+       <button
+          onClick={handleNavigation}
+          style={{
+            margin: "0 5px",
+            padding: "10px",
+            backgroundColor: "#fff",
+            border: "1px solid #ccc",
+            cursor: "pointer",
+          }}
+        >
+          Voir les prédictions
+        </button>
       </div>
 
       {loading && <p>Chargement des données...</p>}
@@ -208,10 +228,11 @@ const TrafficMap = () => {
         <p>Aucune donnée disponible.</p>
       )}
 
+     
       <MapContainer
         center={center}
         zoom={12}
-        style={{ height: "800px", width: "1500px" }}
+        style={{ height: "600px", width: "1500px" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

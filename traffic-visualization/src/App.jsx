@@ -1,13 +1,16 @@
 import React from 'react';
-import TrafficMap from './components/Traffic';
+import { Routes, Route } from 'react-router-dom';
+import TrafficMap from './components/Traffic'; 
+import AccidentPrediction from './components/AccidentPrediction'; 
 import './App.css'; 
 
-const App = () => {
+function App() {
   return (
-    <div className="App">
-      <TrafficMap />
-    </div>
+    <Routes>
+      <Route path="/" element={<TrafficMap />} />
+      <Route path="/predictions" element={<AccidentPrediction />} />
+    </Routes>
   );
-};
+}
 
 export default App;

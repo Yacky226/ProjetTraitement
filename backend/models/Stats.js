@@ -8,7 +8,7 @@ const statSchema = new mongoose.Schema({
     longitude: { type: Number,required:true },
     indice_de_risque: { type: Number,required:true },
     riskIndex:{type:Number,required:true},
-}); // Ajoute automatiquement createdAt et updatedAt
+}); 
 
 module.exports = mongoose.model('Stat', statSchema);
     
