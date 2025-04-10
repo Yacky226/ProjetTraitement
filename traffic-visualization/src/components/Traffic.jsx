@@ -45,9 +45,11 @@ const HeatmapLayerCustom = ({ points }) => {
 
 const TrafficMap = () => {
   const navigate = useNavigate();
+  console.log('TrafficMap rendu, URL actuelle :', window.location.pathname);
 
-  const handleNavigation = () => {
-    navigate('/predictions'); // Chemin vers la nouvelle page
+  const handleNavigation = (url) => {
+    console.log('Navigation vers :', url);
+    navigate(url);
   };
   const [view, setView] = useState("TrafficAccidents");
   const [data, setData] = useState([]);
@@ -209,7 +211,7 @@ const TrafficMap = () => {
 
         ))}
        <button
-          onClick={handleNavigation}
+          onClick={() => handleNavigation('predictions')} // Changer '/predictions' en 'predictions'
           style={{
             margin: "0 5px",
             padding: "10px",
@@ -220,6 +222,19 @@ const TrafficMap = () => {
         >
           Voir les prédictions
         </button>
+        <button
+  onClick={() => handleNavigation('path')} // Changer '/path' en 'path'
+  style={{
+    margin: "0 5px",
+    padding: "10px",
+    backgroundColor: "#fff",
+    border: "1px solid #ccc",
+    cursor: "pointer",
+  }}
+>
+  Voir le chemin
+</button>
+
       </div>
 
       {loading && <p>Chargement des données...</p>}
