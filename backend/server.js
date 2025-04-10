@@ -23,19 +23,19 @@ app.use('/accidents', accidentRoutes);
 
 // Connexion à MongoDB
 mongoose.connect(process.env.MONGO_URI, {
-    // Options de connexion (peuvent être ajoutées si nécessaire)
+   
 })
   .then(() => console.log("Connecté à MongoDB")) // Message en cas de succès
   .catch(err => console.error("Erreur de connexion à MongoDB", err)); // Message en cas d'erreur
 
 // Planifier une tâche cron pour mettre à jour les données toutes les 1 minute
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('*/5 * * * *', async () => {
   console.log("Mise à jour automatique des accidents...");
   try {
     // Envoyer une requête POST pour mettre à jour les données d'accidents
-    const response = await axios.post('http://localhost:5000/accidents/update');
+    const response = await axios.post('http://localhost:3000/accidents/update');
     // Envoyer une requête POST pour mettre à jour les statistiques des accidents par période
-    const response1 = await axios.post('http://localhost:5000/accidents/crash-per-period/update');
+    const response1 = await axios.post('http://localhost:3000/accidents/crash-per-period/update');
     console.log("Mise à jour terminée des accidents:", response.data.message); // Message de succès
     console.log("Mise à jour terminée des statistiques:", response1.data.message); // Message de succès
   } catch (error) {
@@ -43,7 +43,7 @@ cron.schedule('*/1 * * * *', async () => {
   }
 });
 
-// Lancer le serveur sur le port spécifié dans les variables d'environnement ou sur le port 5000 par défaut
+// Lancer le serveur sur le port spécifié dans les variables d'environnement ou sur le port 3000 par défaut
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`); // Message indiquant que le serveur est en cours d'exécution

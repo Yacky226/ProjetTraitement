@@ -145,7 +145,6 @@ router.post('/crash-per-period/update', async (req, res) => {
     try {
         const accidents = await Accident.find();
         const crashPerPeriod = crash_current(accidents);
-        console.log("crashPerPeriod avant insertion :", JSON.stringify(crashPerPeriod, null, 2));
         const filter = {}; // Document unique
         const update = { $set: crashPerPeriod };
         const options = { upsert: true, new: true }; // Upsert = insérer si inexistant

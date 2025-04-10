@@ -33,7 +33,6 @@ const cleanAccidentData = async (rawData) => {
 
             // Vérifier si les coordonnées sont valides
             if (lat === 0 || lon === 0) {
-                console.warn(`Coordonnées invalides pour l'accident (collision_id: ${collision_id})`);
                 continue; // Ignorer les accidents avec des coordonnées invalides
             }
 
