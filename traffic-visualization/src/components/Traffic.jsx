@@ -173,7 +173,7 @@ const TrafficMap = () => {
               <br />
               Tués: {accident.totalKilled }
               <br />
-              Risque: {accident.indice_de_risque}
+              Risque: {accident.indice_de_risque}%
             </Popup>
           </Circle>
         ));
