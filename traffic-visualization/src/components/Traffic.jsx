@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet.heat";
 import { useNavigate } from "react-router-dom"; // Importez useNavigate
-const API_BASE_URL = "http://localhost:3000/accidents";
+const API_BASE_URL = "http://localhost:3010/accidents";
 
 
 // Composant personnalisé pour la heatmap
